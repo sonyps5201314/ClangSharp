@@ -801,6 +801,11 @@ public sealed partial class PInvokeGenerator : IDisposable
             const string AttributeName = "NativeAnnotationAttribute";
             var config = generator.Config;
 
+            if (!config.GenerateNativeAnnotationAttribute)
+            {
+                return;
+            }
+
             var ns = generator.GetNamespace(AttributeName);
             if (config.ExcludedNames.Contains(AttributeName) || config.ExcludedNames.Contains($"{ns}.{AttributeName}"))
             {
@@ -6859,6 +6864,10 @@ public sealed partial class PInvokeGenerator : IDisposable
 
                     case CX_AttrKind_Annotate:
                     {
+                        if (!_config.GenerateNativeAnnotationAttribute)
+                        {
+                            break;
+                        }
                         var annotationText = EscapeString(attr.Spelling);
                         outputBuilder.WriteCustomAttribute($"""NativeAnnotation("{annotationText}")""");
                         break;
