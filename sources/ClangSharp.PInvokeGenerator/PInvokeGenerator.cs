@@ -6820,6 +6820,14 @@ public sealed partial class PInvokeGenerator : IDisposable
             }
         }
 
+        if (namedDecl is ValueDecl valueDecl)
+        {
+            if (valueDecl.Type is IncompleteArrayType)
+            {
+                outputBuilder.WriteCustomAttribute("IncompleteArray");
+            }
+        }
+
         if (!isTestOutput)
         {
             var obsoleteEmitted = false;
