@@ -1144,6 +1144,11 @@ public partial class PInvokeGenerator
             const string AttributeName = "NativeAnnotationAttribute";
             var config = generator.Config;
 
+            if (!config.GenerateNativeAnnotationAttribute)
+            {
+                return hasNamespaceContent;
+            }
+
             var ns = generator.GetNamespace(AttributeName);
             if (config.ExcludedNames.Contains(AttributeName) || config.ExcludedNames.Contains($"{ns}.{AttributeName}"))
             {
