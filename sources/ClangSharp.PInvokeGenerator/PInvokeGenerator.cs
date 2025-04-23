@@ -6826,6 +6826,10 @@ public sealed partial class PInvokeGenerator : IDisposable
             {
                 outputBuilder.WriteCustomAttribute("IncompleteArray");
             }
+            else if (valueDecl.Type is ConstantArrayType constantArray && constantArray.Size == 0)
+            {
+                outputBuilder.WriteCustomAttribute("SizeZeroConstantArray");
+            }
         }
 
         if (!isTestOutput)
