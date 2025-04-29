@@ -633,11 +633,17 @@ public sealed partial class PInvokeGenerator
         }
 
         name = GetCursorName(namedDecl);
-        remappedName = GetRemappedName(name, namedDecl, tryRemapOperatorName: true, out wasRemapped, skipUsing);
-
-        if (wasRemapped)
+        if (namedDecl is not FieldDecl)
         {
-            return remappedName;
+            remappedName = GetRemappedName(name, namedDecl, tryRemapOperatorName: true, out wasRemapped, skipUsing);
+            if (wasRemapped)
+            {
+                return remappedName;
+            }
+        }
+        else
+        {
+            remappedName = name;
         }
 
         if (namedDecl is EnumDecl or RecordDecl)
