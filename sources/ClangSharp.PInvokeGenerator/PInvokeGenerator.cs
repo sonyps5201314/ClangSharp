@@ -2718,14 +2718,6 @@ public sealed partial class PInvokeGenerator : IDisposable
                 switch (attr.Kind)
                 {
                     case CX_AttrKind_Aligned:
-                    {
-                        if (namedDecl is RecordDecl recordDecl)
-                        {
-                            var alignOf = recordDecl.TypeForDecl.Handle.AlignOf;
-                            outputBuilder.WriteCustomAttribute($"NativeAlignment({alignOf})");
-                        }
-                        break;
-                    }
                     case CX_AttrKind_AlwaysInline:
                     case CX_AttrKind_DLLExport:
                     case CX_AttrKind_DLLImport:
